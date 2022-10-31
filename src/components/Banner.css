@@ -1,0 +1,12 @@
+.blinking-cursor::after {
+    content: '|';
+    animation: blink 1s step-end infinite
+}
+
+#circle-1 {
+    animation: move linear 5s alternate infinite;
+}
+@keyframes blink {
+    0% {opacity: 1}
+    50% {opacity: 0}
+}

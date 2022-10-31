@@ -1,23 +1,38 @@
-import logo from './logo.svg';
+// imports
+import { useState } from 'react';
+
+// styles
 import './App.css';
 
+
+// import components
+import Navbar from './components/Navbar';
+import Banner from './components/Banner';
+import Skills from './components/Skills';
+import Footer from './components/Footer';
+import PortfolioSlider from './components/PortfolioSlider';
+import Modal from './components/Modal';
+
+// import context
+import StateProvider  from './contexts/StateContext';
+import { useStateContext } from './contexts/StateContext';
+
+// animate css
+import 'animate.css'
+
 function App() {
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <StateProvider>
+        <Navbar />
+        <Banner/>
+        <Skills />
+        <PortfolioSlider />
+        <Modal />
+
+        <Footer />
+      </StateProvider>
     </div>
   );
 }
