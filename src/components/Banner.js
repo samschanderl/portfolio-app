@@ -30,7 +30,7 @@ export default function Banner() {
     },[textOne])
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 h-full max-w-5xl mx-auto md:mb-5">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-14 pt-10 h-full max-w-5xl mx-auto md:mb-5">
         <div className="flex flex-wrap md:justify-end justify-center items-center p-10 relative">
             <img id="profile" className="md:w-4/5 w-4/6 h-auto pd-10 object-cover aspect-square rounded-full z-10 shadow-lg shadow-slate-400" src={samuel} alt="" />
             {/* <div id="circle-1" className="absolute w-72 h-72 rounded-full bg-slate-200 z-5"></div> */}
