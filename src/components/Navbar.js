@@ -21,7 +21,7 @@ export default function Navbar() {
         </div>
         <a href={GithubURL} className="hover:cursor-pointer"><BsGithub className="text-2xl"/></a>
         <a href={LinkedinURL} className="hover:cursor-pointer"><BsLinkedin className="text-2xl"/></a>
-        <button onClick={toggleModal} className="bg-sky-500 p-2 rounded-lg">Get In Touch</button>
+        <button onClick={toggleModal} className="bg-sky-500 p-2 rounded-lg hover:bg-sky-700">Get In Touch</button>
       </div>
     </div>
   )
