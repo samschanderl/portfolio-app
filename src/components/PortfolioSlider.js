@@ -1,15 +1,10 @@
-import React from 'react';
+import {useEffect, useState} from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from 'swiper';
+import { Projects } from '../data/Projects';
 
-// import components
-import SingleSlide from './SingleSlide';
-
-// import images
-import MeditationImg from '../images/meditation-app-img.png';
-import CertificateImg from '../images/certificate-generator.png';
-import TodoImg from '../images/todo-app.png';
-import ApartmentImg from '../images/apartment-listing.png'
+//  import icons
+import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill} from 'react-icons/bs';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -18,83 +13,66 @@ import 'swiper/css/navigation';
 import './PortfolioSlider.css'
 
 export default function PortfolioSlider() {
-  const projects = [
-    {title: 'Meditation App', 
-    technologies: ['HTML', 'CSS', 'JavaScript'],
-    description: 'Meditation app that guides your meditation and tells you when to breathe in, hold, and breathe out. It lets you pick a sound and the length of each round.',
-    img: MeditationImg,
-    link: 'https://venerable-platypus-64b48f.netlify.app/'},
-    {title: 'Todo App', 
-    technologies: ['React', 'Javascript'],
-    description: 'Todo App that lets you add todo items and mark them as completed or uncompleted. You can also delete them.',
-    img: TodoImg,
-    link: 'https://delightful-cocada-b8dc0f.netlify.app/'},
-    // {title: 'Finance Tracker App', 
-    // technologies: ['React', 'Firebase'],
-    // description: 'App that lets user manage their financial transactions. Allows user to create an account and then log in to manage their expense transactions.',
-    // img: '',
-    // link: ''},
-    {title: 'Certificate Generator', 
-    technologies: ['HTML', 'CSS', 'Javascript'],
-    description: 'The app allows you to generate and download a course certificate. Solution was implemented in an online cooking school.',
-    img: CertificateImg,
-    link: 'https://nimble-crepe-557937.netlify.app/'},
-    {title: 'Apartment Listing Site', 
-    technologies: ['React', 'NodeJS'],
-    description: 'The site lists apartment listings, allows you to watch each single listing. You can also add new listings.',
-    img: ApartmentImg,
-    link: 'https://jocular-biscuit-1f33db.netlify.app/'},
-    
-  ]
+  const [current, setCurrent] = useState(0);
+  const max = Projects.length - 1
+
+  const prevSlide = () => {
+    if (current === 0) {
+      setCurrent(max - 1)
+    }
+    else if (current != 0) {
+      setCurrent(current - 1)
+    }
+  }
+
+  const nextSlide = () => {
+    if (current === max) {
+      setCurrent(0)
+    }
+    else {
+      setCurrent(current + 1)
+    }
+  }
+
+  useEffect(() => {
+    console.log(current)
+  }, [current])
+
+  if (!Array.isArray(Projects) || Projects.length <= 0) {
+    return null
+  }
 
   return (
     <>
       <h1 className="text-6xl m-10 text-left max-w-5xl mx-auto px-10 animate__animated animate__fadeInLeftBig animate__delay-2s">Portfolio Projects<span className="text-sky-500">.</span></h1>
     
-    <div className="bg-gradient-to-r from-slate-600 to-slate-800 py-6">
-      
-      <Swiper className="w-12/12 my-6"
-        modules={[Pagination, Navigation]}
-        breakpoints={{
-          640: {
-            slidesPerView: 2,
-            spaceBetween: 20,
-          },
-          768: {
-            slidesPerView: 3
-          }
-        }}
-        slidesPerView={1}
-        spaceBetween={20}
-        centeredSlides={true}
-        loop={true}
-        navigation
-        pagination={{clickable: true}}
-        grabCursor={true}
-        onSlideChange={() => console.log('slide change')}
-        onSwiper={(swiper) => console.log(swiper)}
-      >
-        {projects.map((project) => 
-          <SwiperSlide className="max-w-sm m-4 bg-slate-900 p-4 rounded-md shadow-md shadow-slate-400 grid md:grid-cols-1">
-            <img className="w-full object-cover aspect-video mb-2" src={project.img} alt="" />
-            <div className="md:col-span-2 p-4 grid">
-              <h1 className="text-xl mb-4 w-full">{project.title}</h1>
-              <p className="italic mb-6">"{project.description}"</p>
-              <div>
-              {project.technologies.map(item => 
-                <span className="bg-slate-700 px-2 py-1 mr-1 mt-2 rounded-full">{item}</span>
-              )}
+      <div className="bg-gradient-to-r from-slate-600 to-slate-800 py-12">
+      <div className="relative flex flex-nowrap justify-center">
+        <BsFillArrowLeftCircleFill className="absolute sm:left-10 left-1 top-2/4 text-4xl z-10" onClick={prevSlide}/>
+        <BsFillArrowRightCircleFill className="absolute sm:right-10 right-1 top-2/4 text-4xl shadow-md z-10" onClick={nextSlide}/>
+        {Projects.map((project, index) => 
+        {if (index === current) {
+          return (
+            <div className="grid md:grid-cols-2 grid-cols-1 md:max-w-screen-md sm:max-w-sm max-w-sm mx-8 bg-slate-900 rounded-lg overflow-hidden shadow-lg shadow-slate-500 animate__animated animate__fadeIn" key={project.name}>
+              <img src={project.img} />
+              <div className="p-6 flex flex-col items-center">
+                <h2 className="text-4xl mb-6 animate__animated animate__fadeIn">{project.title}</h2>
+                <div className="h-px w-2/5 mb-6 bg-sky-400 animate__animated animate__fadeInLeft animate__faster"></div>
+                <p className="mb-4">{project.description}</p>
+                <div className="my-6 flex justify-center">{project.technologies.map(item => (
+                  <span className="mr-2 px-4 py-1 bg-slate-700 rounded-full"key={item}>{item}</span>
+                ))}</div>
+                <a href={project.link} target="_blank" className="my-2 bg-slate-200 rounded-md text-slate-900 py-1 px-2 hover:cursor-pointer hover:bg-slate-300">See Demo</a>
               </div>
-              <a href={project.link} className="mx-auto mt-6 bg-slate-200 text-slate-900 rounded-md px-2 py-1 hover:cursor-pointer hover:bg-sky-500 hover:text-slate-200">See Demo</a>
             </div>
-
-          
-          </SwiperSlide>
-        )
+          )
         }
+          return ''
+        })
+      }
+      </div>
 
-      </Swiper>
-    </div>
+      </div>
     </>
   )
 }

@@ -110,7 +110,7 @@ export default function Modal() {
             {successMessage && <p className="mb-4 text-slate-50 bg-emerald-400 p-2 rounded-md">Success!! I'll get back to you shortly!</p>}
             {errorMessage && <p className="mb-4 text-slate-50 bg-rose-400 p-2 rounded-md">Sorry! Something went wrong. Please try again</p>}
             <input 
-            className="bg-sky-500 w-full p-2 rounded-md text-slate-100 hover:cursor-pointer hover:bg-sky-800"
+            className="bg-sky-500 w-full p-2 rounded-md text-slate-100 hover:cursor-pointer hover:bg-sky-700"
             type="submit" 
             value="Submit" 
             />
